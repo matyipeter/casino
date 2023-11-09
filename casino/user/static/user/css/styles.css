@@ -1,0 +1,55 @@
+* {
+    box-sizing: border-box;   
+}
+
+:root {
+    /* VARIABLES*/
+    --MAIN-THEME: #147b45;
+}
+
+body {
+    background-color: bisque;
+    color: red;
+    margin: 0;
+}
+
+.header-nav {
+    color:white;
+    background-color: var(--MAIN-THEME);
+    text-align: center;
+    padding: 1rem;
+
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+a:link {
+    margin-right: 10px;
+}
+
+hr.nav-hr {
+    border:1px solid black;
+}
+
+.nav-btn {
+    background-color: var(--MAIN-THEME);
+    color: white;
+    font-size:larger;
+    padding: 5px;
+    margin:0;
+}
+
+.nav-btn:hover {
+    background-color:#15a359 ;
+}
+
+.trending {
+    font-weight: bold;
+    color: #c76012;
+}
+
+.trending:hover{
+    background-color: lightcoral;
+}
