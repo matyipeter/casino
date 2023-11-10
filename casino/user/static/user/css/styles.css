@@ -8,17 +8,14 @@
 }
 
 body {
-    background-color: bisque;
-    color: red;
+    background-image: url("https://w0.peakpx.com/wallpaper/274/582/HD-wallpaper-red-chinese-background-chinese-patterns-chinese-ornaments-red-background-chinese-textures.jpg");
+    background-repeat: repeat;
     margin: 0;
 }
 
 .header-nav {
     color:white;
     background-color: var(--MAIN-THEME);
-    text-align: center;
-    padding: 1rem;
-
 }
 
 h1 {
@@ -30,7 +27,8 @@ a:link {
 }
 
 hr.nav-hr {
-    border:1px solid black;
+    border:1px solid white;
+    opacity: 1;
 }
 
 .nav-btn {
@@ -52,4 +50,15 @@ hr.nav-hr {
 
 .trending:hover{
     background-color: lightcoral;
+}
+
+.news-container {
+    width:200px;
+    height:200px;
+    background-color: #15a359;
+}
+
+.game-title {
+    font-weight: bold;
+    font-size: 120%;
 }

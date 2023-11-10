@@ -12,4 +12,3 @@ class UserProfileInline(admin.TabularInline):
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     inlines = (UserProfileInline,)
-

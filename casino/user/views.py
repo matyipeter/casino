@@ -10,9 +10,9 @@ from django.utils.encoding import force_bytes,force_str
 from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 
-# Create your views here.
 
 def index(request):
+    # HOME PAGE
     return render(request, "user/index.html")
 
 # Function to activate the user account based on the token and UID
