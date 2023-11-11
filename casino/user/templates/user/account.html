@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--W3css-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+
+    <link rel="stylesheet" href="{% static 'user/css/styles.css' %}">
+</head>
+<body>
+    <div class='w3-container w3-bar header-nav p-2'>
+        <a class='w3-bar-item w3-btn w3-hide-small' href="{% url "user:index" %}">Return</a>
+        <h1 class='w3-center text-3xl'>Hello {{request.user.username}}!</h1>
+    </div>
+    <div class='grid grid-cols-3 gap-1 w3-card mt-2 p-2 header-nav'>
+        <div>Balance: {{userp.balance}}$</div>
+        <div><a class='w3-btn w3-blue' href="{% url "user:deposit" %}">Deposit</a></div>
+        <div><a class='w3-btn w3-green' href="{% url "user:withdraw" %}">Withdraw</a></div>
+
+        <div>Change Password:</div>
+        <div>
+            <a class='w3-btn w3-red' href="{% url "user:pwchange" %}">Manage Passwords</a>
+        </div>
+        <div>Success message</div>
+    </div>
+    <div class="grid grid-cols-2 gap-2 w3-card p-2 header-nav">
+        <div>Winning History</div>
+        <div>Transaction history</div>
+        <div>winnings list</div>
+        <div>
+            <ul>
+                {% for transaction in transactions %}
+                    <li class='p-1'>
+                        <b>{{transaction.flow}}$</b> <small>{{transaction.transaction_date}}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

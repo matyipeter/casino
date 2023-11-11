@@ -1,4 +1,4 @@
-from .models import UserProfile
+from .models import UserProfile, TransactionHistory
 from django.contrib.auth.models import User
 from django import forms
 
@@ -17,5 +17,8 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['birth_date']
 
+
+class MoneyInputForm(forms.Form):
+    money = forms.FloatField(required=True)
 
 

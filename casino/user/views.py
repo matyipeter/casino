@@ -1,14 +1,16 @@
 from django.shortcuts import render, redirect
-from .forms import UserCreateForm, UserProfileForm
+from .forms import UserCreateForm, UserProfileForm, MoneyInputForm
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from .models import UserProfile
+from .models import UserProfile, TransactionHistory, WinningHistory
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes,force_str
 from django.core.mail import EmailMessage
 from .tokens import account_activation_token
+from datetime import datetime
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -84,5 +86,60 @@ def register(request):
     
     return render(request, 'user/register.html', {'form': form, 'profileform':profile_form})  # Render the registration template with the form
 
+@login_required
+def account(request):
+    user_profile = UserProfile.objects.get(user=request.user)
+    transactions = user_profile.transactionhistory_set.all().order_by('-transaction_date')[:10]
+    return render(request, 'user/account.html',{'userp':user_profile, 'transactions': transactions})
+
+
+def password_change_done(request):
+    return render(request, 'user/password_change_done.html')
+
+
+def deposit(request):
+
+    if request.method == 'POST':
+        form = MoneyInputForm(request.POST)
+
+        if form.is_valid():
+            flow = form.cleaned_data['money']
+            user = UserProfile.objects.get(user=request.user)
+            if flow > 0:
+                new_trans = TransactionHistory(user=user, flow=flow, transaction_date=datetime.now())           
+                new_trans.save()
+                return redirect('user:account')
+            else:
+                print('Cannot add negative amount')
             
+    else:
+        form = MoneyInputForm()
+    
+    return render(request, 'user/deposit.html', {'form':form})
+
+
+def withdraw(request):
+
+    if request.method == 'POST':
+        form = MoneyInputForm(request.POST)
+
+        if form.is_valid():
+            flow = form.cleaned_data['money']
+            user = UserProfile.objects.get(user=request.user)
+            if flow > 0:
+                if user.balance - flow >= 0:
+                    flow = flow * -1
+                    new_trans = TransactionHistory(user=user, flow=flow, transaction_date=datetime.now())           
+                    new_trans.save()
+                    return redirect('user:account')
+                else:
+                    print('Cannot withdraw more then available')
+            else:
+                print('Cannot withdraw negative amount')
+            
+    else:
+        form = MoneyInputForm()
+    
+    return render(request, 'user/withdraw.html', {'form':form})
+
 
