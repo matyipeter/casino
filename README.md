@@ -11,7 +11,6 @@ online casion webapp project
 - W3CSS navbar and menu
 - Frontend upgrade
 - Added a few games (the backend will be done later)
-- user model almost finished (account template is still needed)
 - index.html grid system is still not working as expected (cannot put a gap between the columns without pushing the items to the next row) => fixes will be needed
 
 # 3.
@@ -22,3 +21,10 @@ online casion webapp project
 - password change with built in auth view (template requires styling)
 - transactionhistory listing on account page
 - account page should be better looking on desktop
+
+# 4.
+- new app: games
+- there is 1 game so far (slots)
+- slots backend is almost solid (extra features need to be added and some fixes)
+- slots template is inital, the whole template needs work (slot machine, animations, data, etc.)
+- the game itself should be upgraded in the future (reasonable odds, bet input, multiple winning conditions, etc.)

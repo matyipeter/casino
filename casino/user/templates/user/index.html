@@ -19,7 +19,7 @@
   <div class="w3-col lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;">
     <img class='w3-round' src="https://cdn.britannica.com/73/244173-050-13235B84/Royal-Flush-poker-card-game-gambling.jpg" alt="John" style="width:100%">
     <h3 class='p-2 game-title'>Poker</h3>
-    <p><button class="w3-button w3-light-grey w3-block">PLAY</button></p>
+    <p><button class="w3-button w3-light-grey w3-block">Play</button></p>
   </div>
   
   <div class="w3-col lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;"> 
@@ -32,6 +32,12 @@
     <img class='w3-round w3-image' src="https://images.ctfassets.net/93v9a59si7ol/4YBb00UppffHKLoER9iSKM/ce2873ba40ee885207d19a34c22eba01/roulette-table-at-casino.jpg" alt="Mike" style="width:100%">
     <h3 class="p-2 game-title">Roulette</h3>
     <p><button class="w3-button w3-light-grey w3-block">Play</button></p>
+  </div>
+
+  <div class="w3-col lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;">
+    <img class='w3-round w3-image' src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_CA/games/switch/l/lots-of-slots-switch/hero" alt="Mike" style="width:100%">
+    <h3 class="p-2 game-title">Slots</h3>
+    <p><a href='{% url "games:slot" %}' class="w3-button w3-light-grey w3-block">Play</a></p>
   </div>
 </div>
 {% endblock content %}

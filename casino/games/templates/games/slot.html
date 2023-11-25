@@ -1,0 +1,13 @@
+{% extends "games/base.html" %}
+
+{% block title %}Slots{% endblock title %}
+
+{% block content %}
+<div class='p-4'>
+    {{ balance }}
+</div>
+<div>
+    <div>{{ request.user.username }}</div>
+    <a href='{% url "games:play" %}' class='w3-btn w3-blue'>SPIN</a>
+</div>
+{% endblock content %}

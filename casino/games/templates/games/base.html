@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TAILWIND -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--W3css-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    {% block import %}{% endblock import %}
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <div class="w3-bar w3-green p-6">
+        <p class='text-xl text-center'>It's your lucky day!</p>
+    </div>
+    {% block content %}{% endblock content %}
+</body>
+</html>
