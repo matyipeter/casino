@@ -8,6 +8,28 @@
 </div>
 <div>
     <div>{{ request.user.username }}</div>
-    <a href='{% url "games:play" %}' class='w3-btn w3-blue'>SPIN</a>
+    {% if balance <= 0 %}
+        <p class='p-2 m-2'>You are out of money! Go make a deposit!</p>
+        <a class='w3-btn w3-blue' href="{% url "user:deposit" %}">Deposit</a>
+
+    {% else %}
+        <form action="" method='POST'>
+            {% csrf_token %}
+            <input class='p-2 m-2' name='bet' type="text">
+            <input class='w3-btn w3-yellow' type="submit" name="" id="" value='Place bet'>
+        </form>
+
+        {% if bet > 0 %}
+            <div class='w3-red p-2 text-xl'>
+                Your bet is: {{bet}}
+            </div>
+            <a href='{% url "games:play" bet %}' class='w3-btn w3-blue'>SPIN</a>
+        {% else %}
+            <div>You must bet first!</div>
+        {% endif %}
+    {% endif %}
+    
+    
+    
 </div>
 {% endblock content %}

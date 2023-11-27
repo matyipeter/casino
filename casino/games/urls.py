@@ -5,5 +5,5 @@ app_name = 'games'
 
 urlpatterns = [
     path('slots/',views.slot,name='slot'),
-    path('spinning/', views.game, name='play'),
+    path('<int:bet>/spinning/', views.game, name='play'),
 ]

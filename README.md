@@ -27,4 +27,10 @@ online casion webapp project
 - there is 1 game so far (slots)
 - slots backend is almost solid (extra features need to be added and some fixes)
 - slots template is inital, the whole template needs work (slot machine, animations, data, etc.)
-- the game itself should be upgraded in the future (reasonable odds, bet input, multiple winning conditions, etc.)
+- the game itself should be upgraded in the future (reasonable odds, multiple winning conditions, etc.)
+
+## SLOTS GAME
+- UI upgrade soon..
+- features so far: working slots game, bet input, spinning function
+- features to be added: better win conditions, auto-bet, winning numbers printed on screen etc.
+
