@@ -3,6 +3,14 @@
 {% block title %}Royal Casino{% endblock title %}
 
 {% block content %}
+
+{% for msg in messages  %}
+  <div class="alert alert-warning text-center m-2" role="alert">
+    {{msg}}
+  </div>
+{% endfor %}
+  
+
 <div class="w3-display-container w3-content" style="max-width:1500px;">
   <img class="w3-image" src="https://wallpapers.com/images/hd/casino-background-67ppr1q6d49pwpaz.jpg" alt="Architecture" width="100%">
   <div class="w3-display-middle w3-margin-top w3-center">
@@ -15,30 +23,42 @@
   </div>
 </div>
   
-<div class="w3-row w3-padding">
-  <div class="w3-col lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;">
+<div class="grid grid-cols-1 md:grid-cols-4 w3-padding">
+  <div class="lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;">
     <img class='w3-round' src="https://cdn.britannica.com/73/244173-050-13235B84/Royal-Flush-poker-card-game-gambling.jpg" alt="John" style="width:100%">
     <h3 class='p-2 game-title'>Poker</h3>
     <p><button class="w3-button w3-light-grey w3-block">Play</button></p>
   </div>
   
-  <div class="w3-col lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;"> 
+  <div class="lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;"> 
     <img class='w3-round' src="https://roarcdn.fitting-solutions.at/borgata/casino/en/blog/wp-content/uploads/2020/04/28094255/BlackjackTable.jpg?lossy=1&ssl=1" alt="Jane" style="width:100%">
     <h3 class='p-2 game-title'>Blackjack</h3>
     <p><button class="w3-button w3-light-grey w3-block">Play</button></p>
   </div>
   
-  <div class="w3-col lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;">
+  <div class="lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;">
     <img class='w3-round w3-image' src="https://images.ctfassets.net/93v9a59si7ol/4YBb00UppffHKLoER9iSKM/ce2873ba40ee885207d19a34c22eba01/roulette-table-at-casino.jpg" alt="Mike" style="width:100%">
     <h3 class="p-2 game-title">Roulette</h3>
     <p><button class="w3-button w3-light-grey w3-block">Play</button></p>
   </div>
 
-  <div class="w3-col lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;">
+  <div class="lg:m-2 l3 w3-margin-bottom w3-center w3-round p-2" style="background-color: #147b45;">
     <img class='w3-round w3-image' src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/en_CA/games/switch/l/lots-of-slots-switch/hero" alt="Mike" style="width:100%">
     <h3 class="p-2 game-title">Slots</h3>
     <p><a href='{% url "games:slot" %}' class="w3-button w3-light-grey w3-block">Play</a></p>
+    
   </div>
+</div>
+
+<div class='nav-menu w3-bar p-2 bottom-0 sticky' style="background-color: #147b45;">
+  {% if user.is_authenticated %}
+          <!--<a class='w3-bar-item w3-right btn btn-info text-xl font-medium' href="{% url "user:account" %}">Account</a> -->         
+          <a href="{% url "user:account" %}" class="class='w3-bar-item btn btn-info text-xl font-medium'">Account</a>
+          <a class='w3-bar-item btn btn-danger text-xl font-medium' href="{% url "user:logout" %}">Logout</a>
+  {% else %}
+          <a class='w3-bar-item btn btn-warning text-xl font-medium' href="{% url "user:register" %}">Register</a>
+          <a class='w3-bar-item btn btn-success text-xl font-medium' href="{% url "user:login" %}">Login</a>
+  {% endif %}
 </div>
 {% endblock content %}
 

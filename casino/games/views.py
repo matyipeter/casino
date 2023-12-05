@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 import numpy as np
 from numpy import random
 from user.models import UserProfile
+from django.contrib import messages
 
 
 # Helper function
@@ -47,7 +48,12 @@ def game(request, bet):
 
 def slot(request):
 
-    user = UserProfile.objects.get(user=request.user)
+    try:
+        user = UserProfile.objects.get(user=request.user)
+
+    except:
+        messages.info(request, 'You have to log in to play games.') 
+        return redirect('/')
 
     if request.method == 'POST':
         data = request.POST
