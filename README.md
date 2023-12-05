@@ -5,7 +5,7 @@ online casion webapp project
 - registration with email verification
 - login,logout (built-in classes)
 - initial navbar
-- login/reg ... buttons need to be visible on smaller devices (probable solution: dropdown menu) still in progress
+- login/reg buttons (on large devices, the bottom menu should disappear)
 
 # 2.
 - W3CSS navbar and menu
@@ -33,4 +33,9 @@ online casion webapp project
 - UI upgrade soon..
 - features so far: working slots game, bet input, spinning function
 - features to be added: better win conditions, auto-bet, winning numbers printed on screen etc.
+
+# 5. 
+- back to homepage buttons added to account.html, slot.html
+- bottom menu on homepage for small devices
+
 
