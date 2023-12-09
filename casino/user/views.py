@@ -11,6 +11,7 @@ from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from django.views import View
 
 
 def index(request):
@@ -63,10 +64,13 @@ def activate_email(request, user, to_email):
     messages.success(request, f'Dear <b>{user}</b>, please check your email sent to <b>{to_email}</b> and confirm the activation link to complete the registration.')
     
 
-# Function for user registration
-def register(request):
-    # Check if the HTTP method is POST
-    if request.method == 'POST':
+class Register(View):
+    def get(self, request):
+        form = UserCreateForm()  # Instantiate an empty user creation form
+        profile_form = UserProfileForm()
+        return render(request, 'user/register.html', {'form': form, 'profileform':profile_form})  # Render the registration template with the form
+    
+    def post(self, request):
         form = UserCreateForm(request.POST)  # Instantiate the user creation form with the posted data
         profile_form = UserProfileForm(request.POST)
         # Check if the form data is valid
@@ -80,11 +84,11 @@ def register(request):
             profile.user = user
             profile.save()
             return redirect('/')  # Redirect to the home page after successful registration
-    else:
-        form = UserCreateForm()  # Instantiate an empty user creation form
-        profile_form = UserProfileForm()
+        
+        return render(request, 'user/register.html', {'form': form, 'profileform':profile_form})  # Render the registration template with the form
     
-    return render(request, 'user/register.html', {'form': form, 'profileform':profile_form})  # Render the registration template with the form
+    
+    
 
 @login_required
 def account(request):
@@ -97,9 +101,16 @@ def password_change_done(request):
     return render(request, 'user/password_change_done.html')
 
 
-def deposit(request):
+class DepositView(View):
 
-    if request.method == 'POST':
+    def get(self, request):
+        
+        form = MoneyInputForm()
+        
+        return render(request, 'user/deposit.html', {'form':form})
+
+    def post(self, request):
+
         form = MoneyInputForm(request.POST)
 
         if form.is_valid():
@@ -111,21 +122,23 @@ def deposit(request):
                 return redirect('user:account')
             else:
                 print('Cannot add negative amount')
-            
-    else:
+              
+        return render(request, 'user/deposit.html', {'form':form})
+
+
+class WithdrawView(View):
+
+    def get(self, request):
         form = MoneyInputForm()
+        return render(request, 'user/withdraw.html', {'form':form})
     
-    return render(request, 'user/deposit.html', {'form':form})
-
-
-def withdraw(request):
-
-    if request.method == 'POST':
+    def post(self, request):
         form = MoneyInputForm(request.POST)
 
         if form.is_valid():
             flow = form.cleaned_data['money']
             user = UserProfile.objects.get(user=request.user)
+            
             if flow > 0:
                 if user.balance - flow >= 0:
                     flow = flow * -1
@@ -137,9 +150,6 @@ def withdraw(request):
             else:
                 print('Cannot withdraw negative amount')
             
-    else:
-        form = MoneyInputForm()
-    
-    return render(request, 'user/withdraw.html', {'form':form})
+        return render(request, 'user/withdraw.html', {'form':form})
 
 

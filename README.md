@@ -38,4 +38,6 @@ online casion webapp project
 - back to homepage buttons added to account.html, slot.html
 - bottom menu on homepage for small devices
 
+# 6.
+- modifying the code (using Views)
 
