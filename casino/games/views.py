@@ -6,12 +6,16 @@ from django.contrib import messages
 
 
 # Helper function
-def spin(bet, pattern):
-    baseMultiplier = 40
-    winning_numbers = random.choice(pattern, size=(3))
-    print(winning_numbers)
-    if winning_numbers[0] == winning_numbers[1] and winning_numbers[0] == winning_numbers[2]:
-        return bet * (baseMultiplier-(winning_numbers[0]*winning_numbers[0]))
+def spin(bet):
+    slots = [['cherry','cherry','cherry','cherry','cherry','banana', 'banana','helicopter','bird','bird'],
+             ['cherry','cherry','cherry','cherry','banana','banana','banana','helicopter','helicopter','bird'],
+             ['cherry','cherry','cherry','cherry','cherry','banana','banana','helicopter','bird','bird']]
+    winner_symbols = [random.choice(slots[0]), random.choice(slots[1]), random.choice(slots[2])]
+    print(winner_symbols)
+    if all(i == winner_symbols[0] for i in winner_symbols) and winner_symbols[0] == 'cherry':
+        return bet * 6
+    elif all(i == winner_symbols[0] for i in winner_symbols) and winner_symbols[0] == 'helicopter':
+        return bet*20
     else:
         return 0
 
@@ -20,10 +24,6 @@ def game(request, bet):
     # IMPORTANT note
     # user.save() is always needed because we have to save the current changes to the database
 
-
-    # CHANGES NEEDED
-    patterns = random.choice([1,2,3,4,5,6], p=[0.005, 0.095, 0.15, 0.15, 0.20, 0.4], size=1000)
-    
     # getting the current user
     user = UserProfile.objects.get(user=request.user)
     print(user.user.username)
@@ -37,7 +37,7 @@ def game(request, bet):
         user.save()
     
     # spinning the slot machine and evaluating
-    win = spin(bet, patterns)
+    win = spin(bet)
     print(win)
     
     # adding the win to the users balance (can be 0 if he didnt win)

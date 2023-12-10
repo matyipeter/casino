@@ -1,3 +1,4 @@
+from typing import Any
 from django.shortcuts import render, redirect
 from .forms import UserCreateForm, UserProfileForm, MoneyInputForm
 from django.contrib import messages
@@ -10,13 +11,13 @@ from django.utils.encoding import force_bytes,force_str
 from django.core.mail import EmailMessage
 from .tokens import account_activation_token
 from datetime import datetime
-from django.contrib.auth.decorators import login_required
 from django.views import View
+from django.views.generic import TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-def index(request):
-    # HOME PAGE
-    return render(request, "user/index.html")
+class Index(TemplateView):
+    template_name = "user/index.html"
 
 # Function to activate the user account based on the token and UID
 def activate(request, uidb64, token):
@@ -88,13 +89,16 @@ class Register(View):
         return render(request, 'user/register.html', {'form': form, 'profileform':profile_form})  # Render the registration template with the form
     
     
-    
 
-@login_required
-def account(request):
-    user_profile = UserProfile.objects.get(user=request.user)
-    transactions = user_profile.transactionhistory_set.all().order_by('-transaction_date')[:10]
-    return render(request, 'user/account.html',{'userp':user_profile, 'transactions': transactions})
+class AccountView(LoginRequiredMixin, TemplateView):
+    template_name = "user/account.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user_profile = UserProfile.objects.get(user=self.request.user)
+        context["userp"] = user_profile
+        context["transactions"] = user_profile.transactionhistory_set.all().order_by('-transaction_date')[:10]
+        return context
 
 
 def password_change_done(request):
